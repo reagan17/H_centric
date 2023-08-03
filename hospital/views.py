@@ -7,6 +7,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required,user_passes_test
 from datetime import datetime,timedelta,date
 from django.conf import settings
+from django.contrib import messages
 from django.db.models import Q
 
 # Create your views here.
@@ -741,6 +742,7 @@ def patient_book_appointment_view(request):
             appointment.patientName=request.user.first_name #----user can choose any patient but only their info will be stored
             appointment.status=False
             appointment.save()
+            messages.success(request, 'Appointment booked successfully!')
         return HttpResponseRedirect('patient-view-appointment')
     return render(request,'hospital/patient_book_appointment.html',context=mydict)
 
